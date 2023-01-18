@@ -1,7 +1,7 @@
 {
   "index": "Introduction",
+  "helpers" : "Helper Functions",
   "custom-hooks" : "Custom Hooks",
-  "helpers" : "Helpers",
   "about": {
     "title": "About",
     "type": "page"

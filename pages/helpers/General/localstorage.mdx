@@ -1,0 +1,34 @@
+# Local Storage
+
+This `Local Storage` Function is used for 
+Getting and Setting items to LocalStorage
+
+### Function
+
+```ts filename="lcoalStorage.ts" copy
+const storage = {
+    // Get Method
+    get: (name: string) =>{
+        const value = lcoalStorage.getItem(name) || '';
+        const firstLetter = value[0];
+        if (firstLetter === '[' || firstLetter === "{" ) return JSON.parse(value);
+        return value;
+    },
+
+    // Set Method
+    set: (name: string, value: any) => {
+        const newValue = JSON.stringify(value);
+        lcoalStorage.setItem(name, value);
+    },
+
+    // Clear Method
+    clear: () => lcoalStorage.clear();
+
+    // Remove Method
+    remove: (name: string) => {
+        lcoalStorage.removeItem(name);
+    }
+
+}
+export default storage;
+```

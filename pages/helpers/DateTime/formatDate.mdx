@@ -1,0 +1,92 @@
+# Date Format Functions
+
+These `Date Format` Function is used for 
+Coverting Date/Time to different Formats
+
+### Used Packages
+- https://www.npmjs.com/package/date-fns-tz
+- https://www.npmjs.com/package/moment-timezone
+
+### FormatDate
+
+```ts filename="dateFormat.ts" copy
+import { format } from 'date-fns-tz';
+
+const formatDate = (val: any, formatString = "dd//MM//yyy HH:mm") => {
+    if (val) return format(new Date(val)), formatString);
+    return "";
+}
+```
+
+### IsToday
+
+```ts filename="dateFormat.ts" copy
+import { format } from 'date-fns-tz';
+
+function isToday(date: any){
+    if(format(today, "yyyy-MM-dd") === date?.split("T")[0]){
+        return "Today";
+    }
+    return false;
+}
+```
+
+
+### FormatTimeZoneToUTC
+
+```ts filename="dateFormat.ts" copy
+import { zonedTimeToUtc } from 'date-fns-tz';
+
+function formatTimeZoneToUTC(date: any){
+    return zonedTimeToUtc(date, 'Asia/Singapore')
+}
+```
+
+### Format24HoursTime
+
+```ts filename="dateFormat.ts" copy
+function format24HoursTime(date: any){
+    // 9:00 am
+    return `${time?.substring(0, time.length -3)} ${Number(time?.split(":")[0]) > 11 ? "pm" : "am" }`;
+}
+```
+
+### FormatDateString
+
+```ts filename="dateFormat.ts" copy
+function format24HoursTime(date: any){
+    export const formatDateString = (dateNum: number) => {
+        switch (dateNum) {
+            case 1:
+                return "Sun";
+            case 2:
+                return "Mon";
+            case 3:
+                return "Tue";
+            case 4:
+                return "Wed";
+            case 5:
+                return "Thu";
+            case 6:
+                return "Fri";
+            case 7:
+                return "Sat";
+            case 8:
+                return "PH";
+            default:
+        }
+    }
+}
+```
+
+### GetDateAndTimeFromUTC
+
+```ts filename="dateFormat.ts" copy
+import moment from 'moment-timezone';
+
+const getDateAndTimeFromUTC = (date: string) => {
+    return moment(date).format()?.split("T");
+}
+```
+
+

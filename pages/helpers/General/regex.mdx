@@ -1,0 +1,63 @@
+# Regex & Slugify
+
+These `Regex` and `Slugify` Functions are used for **Validating email** and **Slugifying String**.
+
+### Regex Function
+
+```ts filename="regex.ts" copy
+function isValidEmail(email: string){
+    return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) 
+}
+```
+
+### Regex Usage
+
+```tsx filename="index.tsx" copy
+const Card = () => {
+
+    let isValid: boolean = true;
+    if (!isValidEmail(formData.email)) {
+        isValid = false;
+    } else{
+        isValid = true;
+    }
+    
+    return (
+        <div>
+            <h1>{isValid}</h1>
+        </div>
+    )
+}
+```
+## Slugify Function
+
+```ts filename="slugify.ts" copy
+function spaceToDash(str: string){
+    return str.toLowerCase().replace(/ + /g. '-');
+};
+
+function slugify(str: string){
+    return spaceToDash(str).replace(/[^a-zA-Z0-9:/.\- ]+/g, '');
+};
+
+```
+
+## Slugify Usage
+
+```tsx filename="index.tsx" copy
+const Info = () => {
+
+    const [ input, setInput ] = useState(null);
+    return (
+        <div>
+            <input
+                value={input}
+                onChange={(e) => {
+                    setInput(slugify(e.target.value
+                    ))
+                }}
+            />
+        </div>
+    )
+}
+```
