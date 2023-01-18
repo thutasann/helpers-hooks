@@ -1,8 +1,7 @@
 {
   "index": "Introduction",
+  "custom-hooks" : "Custom Hooks",
   "helpers" : "Helpers",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
   "about": {
     "title": "About",
     "type": "page"
