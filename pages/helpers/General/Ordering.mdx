@@ -1,0 +1,28 @@
+# Ordering & Sorting
+
+These `Ordering & Sorting` Functions are used for 
+ordering and sorting ***Arrays***.
+
+### Function
+
+```ts filename="ordering.ts" copy
+// Sort Sequence No
+export const sortSequeneNo = (data: Array<any>) => {
+    data?.sort((a, b) => {
+        if (a.sequenceNo > b.sequenceNo) return 1;
+        if (a.sequenceNo < b.sequenceNo) return -1;
+        return 0;
+    })
+}
+```
+
+### Usage
+
+```ts filename="list.tsx" copy
+const DataList = () => {
+    const [dataArr, setDataArr] = useState<Array<any>>([]);
+    useEffect(() => {
+        setDataArr(sortSequeneNo(data?.data?.data))
+    }, [])
+}
+```
