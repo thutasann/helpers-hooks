@@ -1,0 +1,30 @@
+# Capitalize
+
+This `Capitalize` Function is used for 
+Capitalizing the First Letter of a String.
+
+### Function
+
+```ts filename="capitalize.ts" copy
+function capitalize(str: string) : string{
+    return str[0].toUpperCase() + str.slice(1)
+}
+```
+
+### Usage
+
+```tsx filename="index.tsx" copy
+const Card = () => {
+    const type = "lorem ispum";
+    return (
+        <div>
+            <h1>{capitalize(type)}</h1>
+        </div>
+    )
+}
+```
+
+### Output
+```
+Lorem Ispum
+```

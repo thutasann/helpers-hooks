@@ -1,0 +1,32 @@
+# Download PDF
+
+This `Download PDF` Function is used for 
+Downloading files responsed back from Backend.
+
+### Function
+
+```ts filename="downlaodPDF.ts" copy
+function downloadPDF = (path, filename) =>{
+    const anchor = document.createElement('a');
+    anchor.href = path;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+}
+```
+
+### Usage
+
+```tsx filename="export.tsx" copy
+const Report = () => {
+    function(){
+        SettingService.doGetDownLoadWavier(id).then((res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }));
+            const fileName = name + '.pdf';
+            downloadPdf(url, fileName);
+            URL.revokeObjectURL(url);
+        });
+    }
+}
+```
