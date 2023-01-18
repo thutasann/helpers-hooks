@@ -1,0 +1,42 @@
+# Image Helper Functions
+
+These `Image` Helper Functions are used for 
+**Converting Images to Base64** and **Compressing Images**
+
+### Used Package
+- https://www.npmjs.com/package/compressorjs
+
+### ToBase64
+
+```ts filename="bae64.ts" copy
+const toBase64 = (file: File | Blob) => {
+    return new Promise<string>(
+        (resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL();
+            reader.onload = () => {
+                typeof reader.result === 'string' && resolve(reader.result.replace('data:image/webp;base64,', ''))
+            }
+            reader.onerror = reject
+        }
+    )
+}
+```
+
+### CompressImage
+
+```ts filename="compressImage.ts" copy
+import Compressor from 'compressorjs'
+
+const compressImage = (file: File, options?: object) => {
+    return new Promise()<string>((resolve, reject) => {
+        new Compressor(file, {
+            resize: 'cover',
+            mimeType: 'image/webp',
+            error: reject,
+            success: (result) => toBase64(result).then(resolve).catch(reject),
+            ...options
+        })
+    })
+}
+```
