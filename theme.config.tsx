@@ -49,7 +49,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/thutasann/react-helpers-hooks',
   footer: {
-    text: 'Helpers Hooks',
+    text: 'HELPERS HOOKS',
   },
 }
 
