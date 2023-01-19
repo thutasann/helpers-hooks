@@ -1,0 +1,116 @@
+# API Helpers
+
+This `API Helper` Function is used for 
+utilizing the API Response and Requests.
+
+### Used Libraries
+- https://www.npmjs.com/package/axios
+- https://www.npmjs.com/package/qs
+
+### Types Declaration
+
+```ts filename="types/Api.ts" copy
+import { AxiosRequestConfig } from 'axios';
+
+export type Request = AxiosRequestConfig & {
+    type?: "form" | "csv" | "multipart";
+    token?: string;
+    payload?: any;
+}
+
+export type ResponseError = {
+    code: number;
+    message: string;
+}
+
+export type Response<T = any>={
+    data: T;
+    message: string;
+}
+```
+
+### API Helper
+
+```ts filename="api.ts" copy
+import qs from 'qs';
+import axios from 'axios'; 
+import { Request, Response, ResponseError } from "types/Api";
+
+async function api<T = any>(
+    url: string,
+    config?: 
+) : Promise<Response<T>>{
+    const { type, token, payload, method="GET", ...rest  } = config || {};
+
+    // Payloads
+    let modifiedPayload: any;
+    const checkArr = Array.isArray(payload);
+    if(checkArr){
+        modifiedPayload = payload;
+    } else{
+        modifiedPayload = { // Modified Payload For TimeZone
+            ...payload,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+        }
+    }
+
+    // Headers
+    rest.headers = rest.headers || {};
+    rest.baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    rest.headers["Authorization"] = token ? "Bearer " + token :
+    `${process.env.NEXT_PUBLIC_BASIC_AUTH_TOKEN}`;
+
+    // Types
+    switch(type){
+        case "multipart" :
+            rest.headers["Content-Type"] = "multipart/form-data";
+            break;
+        case "csv":
+            rest.headers["Accept"] = "application/json";
+            rest.responseType = "blob";
+            break;
+        case "form":
+            rest.headers["Content-Type"] = "application/x-www-form-urlencoded";
+            break;
+        default:
+            rest.headers["Content-Type"] = "application/json";
+    }
+
+    // Return
+    return await axios({
+        url,
+        method,
+        ...rest,
+        [method !== "GET" ? "data" : "params"] : 
+            type === "form" ? qs.stringify(modifiedPayload) :
+            modifiedPayload
+    })
+    .then((res) => {
+        const { data, status, statusText } = res;
+        return status < 400
+            ? Promise.resolve({ data, message : statusText })
+            : Promise.reject({ code: status, message: statusText })
+    })
+    .catch((err) => {
+        if (err?.response?.data?.errorCode === 401){
+            // Logout() or Error Alert
+        }
+        const data = err.response?.data;
+        return Promise.reject({
+            code: data?.errorCode || err.response?.status,
+            message: data?.errorMessage || data?.error_description
+        })
+    })
+}
+```
+
+### Description
+
+| Syntax            | Description |
+| :-----------       | :----------- |
+| **Payload**       | Payloads, Params       |
+| **Data**          | Response Status, Response Data, Response Error        |
+| **Status**        | Response Status        |
+| **Status Text**   | Status Text        |
+
+
