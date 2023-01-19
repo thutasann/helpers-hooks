@@ -1,0 +1,119 @@
+# UseAccordion
+
+This `useAccordion` Hook is used for 
+toggling the element such as **Accordion*
+
+### Type Declaration
+
+```ts filename="accordion.ts" copy
+import { MutableRefObject } from 'react';
+
+type Accordion ={
+    ref: MutableRefObject<any>
+    expanded :boolean
+    toggle: () => void 
+    setCollapseState?: () => void
+}
+```
+
+### Use Accordion
+
+```tsx filename="useAccordion.tsx" copy
+import { useEffect, useRef, useState } from 'react';
+
+export function useAccordion(deps=[], defaultExpanded = false) : Accordion{
+    
+    const ref = useRef<HTMLElement>();
+    const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
+    const [sectionHeight, setSectionHeight] = useState(0);
+
+    // --- Collapse Function
+    function collapseSection(element: HTMLElement){
+        let elementTransition = element.style.transition;
+        element.style.transition = "";
+        requestAnimationFrame(function(){
+            element.style.height = sectionHeight + 'px';
+            element.style.transition = elementTransition;
+            requestAnimationFrame(function(){
+                element.style.height = null;
+            })
+        })
+    }
+
+    // --- SetCollapseState
+    function setCollapseState(){
+        setExpanded(false)
+    }
+
+    // --- Expand Section
+    function expandSection(element: HTMLElement){
+        requestAnimationFrame(() => {
+            element.style.height = element.scrollHeight + "px"
+        })
+    }
+
+    // -- Toggle
+    function toggle(){
+        if(expanded){
+            collapseSection(ref.current)
+            setExpanded(false)
+        } else{
+            expandSection(ref.current)
+            setExpanded(true)
+        }
+    }
+
+    // --- Ref Style Height = Ref Scroll Height
+    useEffect(() => {
+        ref.current && setSectionHeight(ref.current.scrollHeight ?? 0)
+        if(ref.current && expanded){
+            ref.current.style.height = ref.current.scrollHeight + 'px'
+        }
+    }, deps);
+
+    // --- Ref Current Expanded True False
+    useEffect(() => {
+        if(ref?.current){
+            if (defaultExpanded){
+                expandSection(ref?.current);
+                setExpanded(true);
+            } else{
+                setExpanded(false);
+            }
+        }
+    }, [defaultExpanded]);
+
+    return {
+        ref,
+        expanded,
+        toggle,
+        setCollapseState
+    }
+}
+```
+
+### Usage
+
+```tsx filename="FAQ.tsx" copy
+const FAQ = ({question, answer}) => {
+    const { ref, expanded, toggle } : Accordion = useAccordion();
+    return (
+        <>
+            {/* Question */}
+            <div
+                role={'button'}
+                tabIndex={0}
+                onClick={toggle}
+            >   
+                <h1>{question}</h1>
+                <DropDown expanded={expanded} />
+            </div>
+            
+            {/* Answer */}
+            <div ref={ref}>
+                <div>{answer}</div>
+            </div>
+        </>
+    )
+}
+```
