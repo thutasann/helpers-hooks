@@ -1,0 +1,45 @@
+# UseToggle
+
+This `useToggle` Hook is used for 
+updating states using React's **useReducer** Hook.
+
+### Hook
+
+```tsx filename="useToggle.tsx" copy
+import { useReducer } from "react"
+
+export const useToggle = () => {
+    const [ state, dispatch ] = useReducer((state, action) => {
+        switch(action){
+            case "on" :
+                return "on";
+            default : 
+                return "off";
+        }
+    }, "off");
+    return { state, dispatch }
+}
+```
+
+### Usage
+
+```tsx filename="navBar.tsx" copy
+import useToggle from 'hooks/useToggle';
+
+const { state, dispatch } = useToggle();
+
+return (
+    <div>
+        <button
+            onClick={() => {
+                dispatch("off")
+            }}
+        >
+            Toggle
+        </button>
+        
+        {state === "on" && <Modal dispatch={dispatch} /> }
+    </div>
+)
+
+```
