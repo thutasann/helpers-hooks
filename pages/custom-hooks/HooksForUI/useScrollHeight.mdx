@@ -1,0 +1,40 @@
+# UseScrollHeight
+
+This `useScrollHeight` Hook is used for 
+detecting Scrolling Height using **Web APIs**.
+
+### Use Scroll Height
+
+```tsx filename="useScrollHeight.tsx" copy
+import { useEffect, useState } from "react";
+
+export const useScrollHeight = () => {
+    const [scrollHeight, setScrollHeight] = useState(0);
+    
+    const scrollFunc = () =>{
+        setScrollHeight(window.scrollY);
+    }
+    useEffect(() => {
+        window.addEventListener("scroll", scrollFunc);
+        return () => {
+            window.removeEventListener("scroll", scrollFunc)
+        }
+    }, []);
+    
+    return scrollHeight;
+}
+```
+
+### Usage
+
+```tsx filename="navBar.tsx" copy
+const NavBar = () => {
+    const scrollHeight = useScrollHeight();
+
+    return (
+        <nav
+            className={scrollHeight > parallaxScrollHeight ? 'bg-red-500' : 'bg-transparent'}
+        ></nav>
+    )
+}
+```

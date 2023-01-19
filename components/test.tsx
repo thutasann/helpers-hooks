@@ -1,7 +1,16 @@
-// This file is For the TSX formatting
-// @ts-ignore
-const Welcome = () =>{
-    console.log("Welcome From my Doc")
+export const Welcome = () =>{
+    console.log("This file is For the TSX formatting")
 }
+
+// ------------- PlayGround ---------------
+import { MutableRefObject } from 'react';
+
+type Accordion ={
+    ref: MutableRefObject<any>
+    expanded :boolean
+    toggle: () => void 
+    setCollapseState?: () => void
+}
+
 
 
