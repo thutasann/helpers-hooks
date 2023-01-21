@@ -1,0 +1,20 @@
+# Nested Array Recursive
+
+This `Nest Array Recursive` Function is used to 
+**Flatten** the Nested Array Objects.
+
+### Type
+
+```ts filename="menuTypes.ts" copy
+export type subMenus = {
+    menuId: string;
+    routeUrl: string;
+    subMenus: subMenus[];
+}
+
+export type MenuProps = {
+    menuId: string;
+    routeUrl: string;
+    subMenus: subMenus[];
+}[];
+```
