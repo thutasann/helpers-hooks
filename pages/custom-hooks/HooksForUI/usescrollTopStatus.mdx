@@ -1,0 +1,60 @@
+# UseScrollTopStatus
+
+This `useScrollTopStatus` Hook is used for 
+detecting Scrolling Status using **Web APIs**.
+
+### Custom Debounce Function
+
+```ts filename="debounce.ts" copy
+export function debounce(func: () => any, delay: number) {
+    let inDebounce : any;
+    return function(){
+        const args = arguments;
+        clearTimeout(inDebounce);
+        inDebounce = setTimeout(() => func.apply(this, args), delay)
+    }
+}
+```
+
+### Use Scroll Status
+
+```tsx filename="useScrollTopStatus.tsx" copy
+import { useEffect, useState } from "react";
+
+export function useScrollTopStatus(minScrollHeight = 370){
+    const [hasScrolled, setHasScrolled] = useState<boolean>(false);
+    const func = debounce(() => {
+        if(window.scrollY > minScrollHeight){
+            setHasScrolled(true);
+        } else{
+            setHasScrolled(false);
+        }
+    }, 10);
+
+    useEffect(() => {
+        window.addEventListener('scroll', func);
+        return () => {
+            window.removeEventListener('scroll', func);
+        }
+    }, []);
+
+    return hasScrolled;
+};
+```
+
+### Usage
+
+```tsx filename="navBar.tsx" copy
+const NavBar = ({ dark = false, minScrollHeight = 370 }: {
+    dark: boolean,
+    minScrollHeight: number
+}) => {
+    const hasScrolled = useScrollTopStatus(minScrollHeight);
+
+    return (
+        <nav
+            className={hasScrolled ? 'bg-red-500' : 'bg-transparent'}
+        ></nav>
+    )
+}
+```
