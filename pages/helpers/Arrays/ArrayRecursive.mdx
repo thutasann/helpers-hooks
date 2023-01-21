@@ -1,9 +1,9 @@
 # Nested Array Recursive
 
 This `Nest Array Recursive` Function is used to 
-**Flatten** the Nested Array Objects.
+**Flatten** the Nested Array Objects and **Filter** the undefined routeUrls.
 
-### Type
+### Type Declaration
 
 ```ts filename="menuTypes.ts" copy
 export type subMenus = {
@@ -17,4 +17,24 @@ export type MenuProps = {
     routeUrl: string;
     subMenus: subMenus[];
 }[];
+```
+
+### Filter Recursive Menus
+
+```ts filename="filterRecursiveMenu.ts" copy
+export function FilterNestedArray(menus: MenuProps){
+    let flattendedMenus: subMenus[] = [];
+
+    function flattenRecursiveMenus(m: any){
+        for (let i of m){
+            flattendedMenus.push(i);
+            if(i.subMenus?.length){
+                flattenRecursiveMenus(i.subMenus)
+            }
+        }
+    }
+    flattenRecursiveMenus(menus)
+
+    return flattendedMenus?.filter((m) => m.routeUrl !== undefined);
+}
 ```
