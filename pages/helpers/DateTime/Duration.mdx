@@ -1,0 +1,22 @@
+# Duration Util
+
+These `Duration` Function is used for 
+getting the **Mins**, **Seconds**, **Hours**
+
+### Duration
+
+```ts filename="duration.ts" copy
+export const Duration = {
+    mins: (mins: number) => 1000 * 60 * mins,
+    seconds : (seconds: number) => 1000 * seconds,
+    hours: (hours: number) => 1000 * 60 * 60 * hours
+}
+```
+
+### Usage
+
+```ts filename="fetchPost.ts" copy
+import { Duration } from 'util/duration';
+
+const staleTime = Duration.mins(2);
+```
