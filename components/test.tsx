@@ -1,16 +1,4 @@
+// This file is For the TSX formatting
 export const Welcome = () =>{
-    console.log("This file is For the TSX formatting")
+    console.log("Welcome From my Doc")
 }
-
-// ------------- PlayGround ---------------
-import { MutableRefObject } from 'react';
-
-type Accordion ={
-    ref: MutableRefObject<any>
-    expanded :boolean
-    toggle: () => void 
-    setCollapseState?: () => void
-}
-
-
-
