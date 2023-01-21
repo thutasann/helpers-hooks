@@ -1,0 +1,42 @@
+# Copy To Clipboard
+
+This `Copy To Clipboard` Function is used for 
+**Copying the Contents** to the Clipboard
+
+### Copy to Clipboard
+
+```ts filename="copyToClipboard.ts" copy
+export function copyToClipBoard(text: string){
+    navigator.clipboard.writeText(text).then(
+        () => {
+            alert('copied');
+        },
+        () =>{
+            alert('cannot copy');
+        }
+    )
+}
+```
+
+### Usage
+
+```ts filename="BlogCard.tsx" copy
+function BlogCard() {
+    const text: string = "This is CopyToClipboard Util Function";
+
+    const copyHandle = () => {
+        copyToClipBoard(text)
+    }
+
+    return (
+        <>
+            <p>{text}</p>
+            <button
+                onClick={copyHandle}
+            >
+                Copy
+            </button>
+        </>
+    )
+}
+```
