@@ -1,0 +1,26 @@
+# Get Minutes
+
+This `Get Minutes` Function is used for 
+returning **Total Minute** From **Time Duration**
+
+### GetMinute
+
+```ts filename="getMinutes.ts" copy
+export const getMinutes = (time: string) => {
+    // time -> 01:00:00
+    const [hr, min, sec] = time.split(":");
+    const totalMin = Number(hr) * 60 + Number(min) + Math.floor(Number(sec) / 60);
+    return `${totalMin} mins`
+}
+```
+
+### Usage
+
+```ts filename="dateFormat.ts" copy
+function MovieCard(){
+    // duration -> 01:00:00
+    return (
+        <h2>{getMinutes(props.movie.duration)}</h2>
+    )
+}
+```
