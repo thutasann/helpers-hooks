@@ -1,7 +1,17 @@
 {
   "index": "Introduction",
-  "helpers" : "Helper Functions",
-  "custom-hooks" : "Custom Hooks",
+  "helpers" : {
+    "title": "Helper Functions",
+    "theme" : {
+      "collapsed": true
+    }
+  },
+  "custom-hooks" : {
+    "title" : "Custom Hooks",
+    "theme" : {
+      "collapsed": true
+    }
+  },
   "about": {
     "title": "About",
     "type": "page"
