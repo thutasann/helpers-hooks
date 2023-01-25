@@ -1,0 +1,50 @@
+# UseResponsive
+
+This `useResponsive` Hook is used for 
+detecting the UI Responsiveness using **React Responsive**.
+
+### Used Package
+- https://www.npmjs.com/package/react-responsive
+
+### Use Responsive
+
+```ts filename="useResponsive.ts" copy
+import { useMediaQuery } from 'react-responsive';
+
+const BREAKPOINTS = {
+    laptop: '992px',
+    mobile: '576px'
+};
+export const useResponsive = () => {
+    const isLaptop = useMediaQuery({
+        query: `(min-width: ${BREAKPOINTS.laptop})`
+    });
+    
+    const isMobile = useMediaQuery({
+        query: `(min-width: ${BREAKPOINTS.mobile})`
+    });
+
+    return {
+        isMobile,
+        isLaptop
+    }
+};
+```
+
+### Usage
+
+```tsx filename="navBar.tsx" copy
+import { useResponsive } from 'hooks/useResponsive';
+
+function navBar () {
+
+    const { isLaptop } = useResponsive();
+
+    return (
+        <nav
+            className={`${isLaptop ? 'bg-blue-500' : 'bg-transparent'}`}
+        >
+        </nav>
+    )
+};
+```
