@@ -1,0 +1,49 @@
+# UseDebounce
+
+This `useDebounce` Hook is used for
+**Debouncing Time**
+
+### Note
+
+```txt filename="note.txt" copy
+Debouncing is a programming pattern or a technique
+to restrict the calling of a time-consuming function frequently,
+by delaying the execution of the function until a specified time
+to avoid unnecessary CPU cycles,
+```
+
+### Use Debounce
+
+```ts filename="useDebounce.ts" copy
+import { useState } from 'react'
+
+export const useDebounce = (timeout = 500) => {
+  const [timer, setTimer] = useState(0)
+
+  const debounce = (fn: () => void) => {
+    if (timer) clearTimeout(timer)
+    const newTimer: any = setTimeout(() => fn(), timeout)
+    setTimer(newTimer)
+  }
+
+  return { debounce }
+}
+```
+
+### Usage
+
+```tsx filename="TimeIntervalPicker.tsx" copy
+const TimeIntervalPicker = (value: any) => {
+  const { debounce } = useDebounce()
+
+  const scrollIntoView = (time = value) => {
+    debounce(() => {
+      document.getElementById(time?.format('hh:mm A'))?.scrollIntoView({
+        behavior: 'auto',
+        block: 'nearest',
+        inline: 'nearest',
+      })
+    })
+  }
+}
+```
