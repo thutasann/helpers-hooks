@@ -1,0 +1,41 @@
+# UseToken
+
+This `useToken` Hook is used for
+**Getting Token** and **Accessing Token**
+
+### UseToken
+
+```ts filename="useToken.ts" copy
+let accessToken: string = ''
+
+/**
+ * Get Token
+ */
+export const getToken = () => {
+  if (typeof window !== 'undefined') {
+    accessToken = localStorage.getItem(window.location.origin) || accessToken
+  }
+  return accessToken
+}
+
+/**
+ * Set Token
+ */
+export const setToken = (token: string) => {
+  accessToken = token
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(window.location.origin, token)
+  }
+  return accessToken
+}
+```
+
+### Usage
+
+```tsx filename="login.tsx" copy
+function Login() {
+  const submitLogin = () => {
+    setToken(res.data.accessToken)
+  }
+}
+```
