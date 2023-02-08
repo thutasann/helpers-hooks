@@ -1,0 +1,44 @@
+# UseAxios
+
+This `useAxios` Hook is used for
+**Fetching Data** using **Axios**
+
+### Use Axios
+
+```tsx filename="useAxios.tsx" copy
+// Sample API
+axios.defaults.baseURL = 'http://opentdb.com/'
+
+const useAxios = ({ url }) => {
+  const [response, setResponse] = useState(null)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = () => {
+      axios
+        .get(url)
+        .then(res => setResponse(res.data))
+        .catch(err => setError(err))
+        .finally(() => setLoading(false))
+    }
+    fetchData()
+  }, [url])
+
+  return { response, error, loading }
+}
+```
+
+### Usage
+
+```tsx filename="itemsList.tsx" copy
+function List() {
+  const { response, error, loading } = useAxios({ url = '/api_products' })
+
+  return (
+    <div>
+      <h1>Products</h1>
+    </div>
+  )
+}
+```
