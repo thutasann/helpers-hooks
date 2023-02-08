@@ -1,0 +1,28 @@
+# Canvas Helper Function
+
+These `Canvas` Helper Functions are used to check <br/>
+Canvas is Empty or not for **Drwing Canvas Features**.
+
+### Is Canvas Empty
+
+```tsx filename="isCanvasEmpty.tsx" copy
+export function isCanvasEmpty(canvas: HTMLCanvasElement | null) {
+  if (!canvas) return true
+  const blankCanvas = document.createElement('canvas')
+  blankCanvas.width = canvas.width
+  blankCanvas.height = canvas.height
+  return canvas.toDataURL() === blankCanvas.toDataURL()
+}
+```
+
+### Usage
+
+```tsx filename="Canvas.tsx" copy
+const [isEmpty, setIsEmpty] = useState<boolean>(false)
+const canvasRef = useRef<HTMLCanvasElement | null>(null)
+
+const finishDrawing = () => {
+  const isEmpty = isCanvasEmpty(canvasRef.current)
+  setIsEmpty(isEmpty)
+}
+```
