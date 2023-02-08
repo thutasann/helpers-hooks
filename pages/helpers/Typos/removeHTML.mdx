@@ -1,0 +1,23 @@
+# Remove HTML Tags
+
+This `Remove HTML` Function is used for
+**removing HTMLTags** from the Rich Texts.
+
+### Remove HTML
+
+```tsx filename="removeHTML.tsx" copy
+export function removeHTMLTags(str: string) {
+  const regex = /(<([^>]+)>)/gi
+  return str.replace(regex, '').replace(/&nbsp;/g, ' ')
+}
+```
+
+### Usage
+
+```tsx filename="blogCard.tsx" copy
+<HTML
+  dangerouslySetInnerHTML={{
+    _html: removeHTMLTags(blog?.content),
+  }}
+/>
+```

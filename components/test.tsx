@@ -4,11 +4,13 @@ import { useRef, useState } from 'react'
 export const Welcome = () => {
   console.log('Welcome From my Doc')
 }
-
-export function isCanvasEmpty(canvas: HTMLCanvasElement | null) {
-  if (!canvas) return true
-  const blankCanvas = document.createElement('canvas')
-  blankCanvas.width = canvas.width
-  blankCanvas.height = canvas.height
-  return canvas.toDataURL() === blankCanvas.toDataURL()
+export const changeCaption = (text: string) => {
+  if (!text) {
+    return ''
+  }
+  return text
+    .replace('_', '')
+    .split('')
+    .map((s: string) => `${s.charAt(0).toUpperCase()}${s.slice(1)}`)
+    .join(' ')
 }
