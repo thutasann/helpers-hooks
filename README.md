@@ -1,6 +1,6 @@
-# React Helopers Hooks Functions
+# React Helpers Hooks Functions
 
-This repo contains reusable React Helper Functions & Custom Hooks.
+This repo contains reusable React Custom Hooks & Helper Functions.
 
 [**Live Demo →**](https://helpers-hooks.vercel.app/)
 
