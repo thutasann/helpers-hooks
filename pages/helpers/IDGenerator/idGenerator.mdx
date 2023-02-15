@@ -1,0 +1,28 @@
+# ID Generator
+
+This `ID Generator` Function is used for
+Generating `Random IDs`.
+
+### Id Generator
+
+```ts filename="idGenerator.ts" copy
+export function generateId(): string {
+  const S4 = function () {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+  }
+  return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4()
+}
+```
+
+### Usage
+
+```tsx filename="index.tsx" copy
+const id = generateId()
+console.log('id =>', id)
+```
+
+### Output
+
+```
+id => 40dd1c65-3c8d-03a8-0439-a48b9682bc81
+```
