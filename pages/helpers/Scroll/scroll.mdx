@@ -1,0 +1,33 @@
+# Scroll Helpers
+
+These `Scroll` Helper Functions are used for
+`Scroll Behaviours`
+
+### Enable/Disable Scroll
+
+```tsx filename="scroll.ts" copy
+export function disableScroll() {
+  document.body.style.maxHeight = '100vh'
+  document.body.style.overflow = 'hidden'
+  document.body.scrollTop = document.documentElement.scrollTop = 0
+}
+
+export function enableScroll() {
+  document.body.style.maxWidth = 'auto'
+  document.body.style.overflow = 'visible'
+}
+```
+
+### Usage
+
+```tsx filename="modal.tsx" copy
+import { useEffect } from 'react'
+
+useEffect(function () {
+  disableScroll()
+
+  return () => {
+    enableScroll()
+  }
+}, [])
+```
