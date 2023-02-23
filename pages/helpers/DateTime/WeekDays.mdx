@@ -1,0 +1,33 @@
+# WeekDays Utils
+
+These `WeekDays` Function is used for the WeekDays Utilities.
+
+### Get Weekdays Between
+
+```ts filename="GetDays.ts" copy
+function GetDays(first, last) {
+  let week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  const firstIndex = week.indexOf(first)
+  week = week.concat(week.splice(0, firstIndex))
+  const lastIndex = week.indexOf(last)
+  return week.slice(0, lastIndex + 1)
+}
+```
+
+### Usage
+
+```ts filename="calendar.tsx" copy
+import { format } from 'date-fns-tz'
+
+const Calendar = () => {
+  const days = GetDays('Monday', 'Wednesday')
+  console.log(days)
+  return <h1>Calendar</h1>
+}
+```
+
+### Output
+
+```
+['Monday', 'Tuesday', 'Wednesday']
+```
