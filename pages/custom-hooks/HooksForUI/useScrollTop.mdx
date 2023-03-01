@@ -1,0 +1,45 @@
+# Use Scroll Top
+
+This `useScrollTop` Hook is used for
+Scrolling the screen to the Top.
+
+### Use Scroll Top
+
+```ts filename="debounce.ts" copy
+import { useLayoutEffect, useCallback } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+
+export const useScrollTop = () => {
+  const { pathname, state } = useLocation()
+  const history = useHistory()
+
+  const updateState = useCallback(() => {
+    typeof state === 'object' &&
+      history.push(pathname, {
+        state: {
+          ...state,
+          scrolled: true,
+        },
+        replace: true,
+      })
+    window?.scrollTo(0, 0)
+  }, [pathname, state, history])
+
+  useLayoutEffect(() => {
+    const unlisten = () => {
+      if (!(state as any)?.scrolled) {
+        updateState()
+      }
+    }
+    return unlisten
+  }, [state, updateState])
+}
+```
+
+### Usage
+
+```tsx filename="App.tsx" copy
+const App: FC = () => {
+  return <>{useScrollTop()}</>
+}
+```
