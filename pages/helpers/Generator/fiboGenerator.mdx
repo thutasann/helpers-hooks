@@ -1,0 +1,18 @@
+# Fibo Generator
+
+This `Fibo Generator` Function is used for
+Generating `Fibonacci number`.
+
+### Fibo Generator
+
+```ts filename="fibo.ts" copy
+export function Fib(n: number): number {
+  return n <= 1 ? n : Fib(n - 1) + Fib(n - 2)
+}
+```
+
+### Usage
+
+```tsx filename="index.tsx" copy
+const number = Fib(1)
+```
