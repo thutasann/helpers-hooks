@@ -1,0 +1,49 @@
+# Scroll Detector
+
+This `Scroll Detector` is used for
+triggeringn the infinity scroll for the lists.
+
+> "PS: That is not a Hook"
+
+### Scroll Detector
+
+```ts filename="scrollDetector.tsx" copy
+import React, { useEffect } from 'react'
+
+interface IScrollDetector {
+  onScrollEnd: Function
+  children: React.ReactNode
+}
+
+export const ScrollDecter = ({ onScrollEnd, children }: IScrollDetector) => {
+  let prevScrollTop: number = 0
+
+  function handleScroll() {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement
+
+    if (scrollTop > prevScrollTop) {
+      if (scrollTop + clientHeight >= scrollHeight - 700) {
+        onScrollEnd()
+      }
+    }
+    prevScrollTop = scrollTop
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  return <div>{children}</div>
+}
+```
+
+### Usage
+
+```tsx filename="products.tsx" copy
+<ScrollDetector onScrollEnd={fetchFunction}>
+    <></>
+</ScrollDector>
+```
