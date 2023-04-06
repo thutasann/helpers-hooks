@@ -1,0 +1,23 @@
+# Format Price
+
+This `FormatPrice` Function is used for
+**formatting the prices** along with **comma** and **currency**.
+
+### FormatPrie
+
+```tsx filename="formatPrice.ts" copy
+export const formatPrice = (value: number): string => {
+  if (!value) return
+  return new Intl.NumberFormat('mm-MM', {
+    maximumSignificantDigits: 3,
+    style: 'currency',
+    currency: 'MMK',
+  }).format(value)
+}
+```
+
+### Usage
+
+```tsx filename="product.tsx" copy
+const price = formatPrice(35000) // 35,000MMK
+```
