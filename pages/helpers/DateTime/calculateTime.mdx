@@ -1,0 +1,21 @@
+# Calculate Time
+
+This `Calculate Time` Function is used for
+**converting the number** to **minutes and seconds**.
+
+### CalculateTime
+
+```tsx filename="calculateTime.ts" copy
+function calculateTime(time: number) {
+  const minutes = Math.floor(time / 60)
+  const seconds = time % 60
+  return `${minutes} : ${seconds}`
+}
+```
+
+### Usage
+
+```tsx filename="timer.tsx" copy
+let time: number = 120
+const formatTime = calculateTime(time) // 1:09
+```
