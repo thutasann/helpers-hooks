@@ -1,0 +1,51 @@
+# Time Ago Util
+
+This `TimeAgo` Function is used for
+formatting the TimeAgo format from the TimeStamp
+
+### TimeAgo
+
+```ts filename="timeAgo.ts" copy
+export function timeAgo(date: string): string {
+  const formattedDate = new Date(date)
+  const seconds = Math.floor((new Date() - formattedDate) / 1000)
+  const intervals = {
+    year: 31536000,
+    month: 2592000,
+    week: 604800,
+    day: 86400,
+    hour: 3600,
+    minute: 60,
+    second: 1,
+  }
+
+  let interval: string
+  let count: number
+
+  for (const key in intervals) {
+    if (seconds >= intervals[key]) {
+      interval = key
+      count = Math.floor(seconds / intervals[key])
+      break
+    }
+  }
+
+  if (count === 1440 && interval === 'minute') {
+    return 'Today'
+  }
+  if (count === 1 && interval === 'day') {
+    return 'Yesterday'
+  }
+  if (!interval || !count) {
+    return 'just now'
+  }
+
+  return count + ' ' + interval + (count > 1 ? 's' : '') + ' ago'
+}
+```
+
+### Usage
+
+```ts filename="post.tsx" copy
+const ago = timeAgo('2023-04-19T11:07:21.467+00:00')
+```
