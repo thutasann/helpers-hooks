@@ -1,0 +1,21 @@
+# Format TimeUnit
+
+This `Format TimeUnit` Function is used for
+formatting the time with **_AM_** or **_PM_**
+
+### TimeUnit
+
+```ts filename="timeUnit.ts" copy
+export function formatTimeUnit(time: string): string {
+  let hour = parseInt(time.split(':')[0]) % 12
+  hour = hour ? hour : 12
+
+  return `${hour}:${time.split(':')[1]} ${parseInt(time.split(':')[0]) >= 12 ? 'PM' : 'AM'}`
+}
+```
+
+### Usage
+
+```ts filename="card.tsx" copy
+const time = formatTimeUnit('12:20')
+```
